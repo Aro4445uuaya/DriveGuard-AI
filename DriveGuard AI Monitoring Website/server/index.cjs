@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const app = express();
@@ -35,11 +36,6 @@ app.get("/api/textbee-test", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "DriveGuard backend is running",
-  });
-});
 
 app.get("/api/textbee-status/:batchId", async (req, res) => {
   try {
@@ -344,6 +340,14 @@ if (!response.ok) {
       message: "Could not connect to Gemini.",
     });
   }
+});
+
+const frontendPath = path.join(__dirname, "..", "dist");
+
+app.use(express.static(frontendPath));
+
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
