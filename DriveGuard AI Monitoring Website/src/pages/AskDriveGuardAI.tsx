@@ -71,7 +71,7 @@ const handleSend = async () => {
   setLoading(true);
 
   try {
-    const response = await fetch("/api/ask-driveguard-ai", {
+    const response = await fetch("https://driveguard-ai-4i3i.onrender.com/api/ask-driveguard-ai", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
