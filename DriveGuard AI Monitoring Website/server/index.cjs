@@ -344,6 +344,13 @@ if (!response.ok) {
 
 const frontendPath = path.join(__dirname, "..", "dist");
 
+// Allow search-engine and social-media crawlers
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send(`User-agent: *
+Allow: /`);
+});
+
 app.use(express.static(frontendPath));
 
 app.get("/{*splat}", (req, res) => {
