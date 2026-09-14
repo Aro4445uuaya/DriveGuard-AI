@@ -8,7 +8,10 @@ import {
   FilesetResolver,
   DrawingUtils,
 } from "@mediapipe/tasks-vision";
-import { getAccelerationMagnitude } from "../Motionsensor";
+import {
+  enableMotionSensor,
+  getAccelerationMagnitude,
+} from "../Motionsensor";
 
 interface Props {
   onSessionEnd: (d: SessionData) => void;
@@ -393,9 +396,11 @@ useEffect(() => {
 
 
 useEffect(() => {
+  enableMotionSensor();
+
   const interval = window.setInterval(() => {
     setAcceleration(getAccelerationMagnitude());
-  }, 5000);
+  }, 100);
 
   return () => {
     window.clearInterval(interval);
